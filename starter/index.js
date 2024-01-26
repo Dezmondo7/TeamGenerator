@@ -19,17 +19,17 @@ const render = require("./src/page-template.js");
 const teamArray = []
 
 //Inquirer to add input
-const employeeInput = () => {
+const addManager = () => {
     return inquirer.prompt ([
         {
             type: 'input', 
             name: 'name',
-            message: 'Employee, please enter your name',
+            message: 'Manager, please enter your name',
             validate: nameInput => {
                 if (nameInput) {
                     return true; 
                 } else {
-                    console.log('Emplyee, Please enter your name')
+                    console.log('Manager, Please enter your name')
                     return false;
                 }
             }
@@ -76,30 +76,37 @@ const employeeInput = () => {
             }
         },
     ])
-    .then(employeeInput => {
-        const { name, id, email, officeNumber } = employeeInput;
-        const employee = new Employee (name, id, email, officeNumber);
+    .then(managerInput => {
+        const { name, id, email, officeNumber } = managerInput;
+        const manager = new Manager (name, id, email, officeNumber);
 
-        teamArray.push(employee);
-        console.log(employee);
+        teamArray.push(manager);
+        console.log(manager);
     })
 };
 
-const addManager = () => {
+const addEmployee = () => {
     console.log(`
-   Add Maanger
+    adding employee to the team
     `);
 
     return inquirer.prompt ([
         {
-            type: 'input', 
+            type: 'list', 
+            name: 'job role',
+            message: 'please enter your job role',
+            choices: ['Employee', 'Engineer']
+        
+        },
+        {
+            type: 'input',
             name: 'name',
-            message: 'Manager, please enter your name',
+            message: 'Please enter your name',
             validate: nameInput => {
                 if (nameInput) {
-                    return true; 
+                    return true;
                 } else {
-                    console.log('Emplyee, Please enter your name')
+                    console.log('Please enter your name');
                     return false;
                 }
             }
@@ -116,7 +123,7 @@ const addManager = () => {
                     return true;
                 }
             }
-        }, 
+        },
         {
             type: 'input',
             name: 'email',
@@ -134,8 +141,22 @@ const addManager = () => {
         },
         {
             type: 'input',
-            name: 'officeNumber',
+            name: 'github',
+            message: 'Please enter empployee github username',
+            when: (input) => input.role === "Engineer",
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log('Please enter the employee github username')
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'school',
             message: 'Please enter the office telephone number',
+            when: (input) => input.role ==="Engineer",
             validate: nameInput => {
                 if(isNaN(nameInput)) {
                     console.log('Please enter the office telephone number')
@@ -144,5 +165,25 @@ const addManager = () => {
                     return true;
                 }
             }
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: "Intern, please enter the name of your school",
+            when: (input) = input.role === 'intern',
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log('Intern, Please enter your school')
+                }
+            }
+        },
+        {
+            type: 'confirm',
+            name: 'confirmAddingEmployee',
+            message: 'Would you like to add anymore team members?',
+            default: false
         }
-};
+    ])
+    .then(employeeData => )
