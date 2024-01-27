@@ -15,7 +15,7 @@ const render = require("./src/page-template.js");
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
-//set emtpy array to be pushed into 
+//set emptyy array to be pushed into 
 const teamArray = []
 
 //Inquirer to add input
@@ -77,14 +77,14 @@ const addManager = () => {
         },
     ])
     .then(managerInput => {
-        const { name, id, email, officeNumber } = managerInput;
-        const manager = new Manager (name, id, email, officeNumber);
-
+        const { name, Id, email, officeNumber } = managerInput;
+        const manager = new Manager (name, Id, email, officeNumber);
+//logs the information and the pushes the manager input into the team array
         teamArray.push(manager);
         console.log(manager);
     })
 };
-
+//gathering employee data input
 const addEmployee = () => {
     console.log(`
     adding employee to the team
@@ -93,7 +93,7 @@ const addEmployee = () => {
     return inquirer.prompt ([
         {
             type: 'list', 
-            name: 'job role',
+            name: 'role',
             message: 'please enter your job role',
             choices: ['Employee', 'Engineer']
         
@@ -113,11 +113,11 @@ const addEmployee = () => {
         },
         {
             type: 'input',
-            name: 'id',
-            message: 'Please enter your ID',
+            name: 'Id',
+            message: 'Please enter your Id',
             validate: nameInput => {
                 if (isNaN(nameInput)) {
-                    console.log('Please enter your ID number')
+                    console.log('Please enter your Id number')
                     return false;
                 } else {
                     return true;
@@ -186,4 +186,54 @@ const addEmployee = () => {
             default: false
         }
     ])
-    .then(employeeData => )
+    .then(employeeData => {
+
+        let { name, id, email, role, github, school, confirmAddingEmployee } = employeeData;
+        let employee;
+
+        if (role === "Engineer" ) {
+            employee = new Engineer (name, id, email, github)
+
+            console.log(employee)
+
+        } else if (role === "Intern") {
+            employee = new Intern (name, id, email, school);
+
+            console.log(employee);
+        }
+
+        teamArray.push(employee);
+
+        if (confirmAddingEmployee) {
+            return addEmployee(teamArray);
+        } else {
+            return teamArray
+        }
+        })
+    };
+
+   //  write function to generate HTML page
+
+   const writeFile = data => {
+    fs.writeFile('./starter/team.html', data, err => {
+
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            console.log("Your team profile has been succesffuly generated in the HTML.index file!!")
+        }
+    })
+   };
+
+   addManager()
+   .then(addEmployee)
+   .then(teamArray => {
+    return generateHTML(teamArray);
+   })
+   .then(pageHTML => {
+    return writeFile(pageHTML);
+   })
+   .catch(err => {
+    console.log(err);
+   });
