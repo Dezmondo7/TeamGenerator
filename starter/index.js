@@ -18,25 +18,25 @@ const render = require("./src/page-template.js");
 //set emptyy array to be pushed into 
 const teamArray = []
 
-//Inquirer to add input
+//Inquirer to add the manager input
 const addManager = () => {
     return inquirer.prompt ([
         {
             type: 'input', 
             name: 'name',
-            message: 'Manager, please enter your name',
+            message: 'Please enter your mangers name',
             validate: nameInput => {
                 if (nameInput) {
                     return true; 
                 } else {
-                    console.log('Manager, Please enter your name')
+                    console.log('Please enter your managers name')
                     return false;
                 }
             }
         },
         {
             type: 'input',
-            name: 'id',
+            name: 'Id',
             message: 'Please enter your ID',
             validate: nameInput => {
                 if (isNaN(nameInput)) {
@@ -51,7 +51,7 @@ const addManager = () => {
             type: 'input',
             name: 'email',
             message: 'Please enter your email adress',
-            validate: nameInput => {
+            validate: email => {
                 valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
                 if (valid) {
                     return true;
@@ -95,7 +95,7 @@ const addEmployee = () => {
             type: 'list', 
             name: 'role',
             message: 'please enter your job role',
-            choices: ['Employee', 'Engineer']
+            choices: ['Engineer', 'Intern']
         
         },
         {
@@ -128,7 +128,7 @@ const addEmployee = () => {
             type: 'input',
             name: 'email',
             message: 'Please enter your email adress',
-            validate: nameInput => {
+            validate: email => {
                 valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
                 if (valid) {
                     return true;
@@ -142,7 +142,7 @@ const addEmployee = () => {
         {
             type: 'input',
             name: 'github',
-            message: 'Please enter empployee github username',
+            message: 'Please enter employee github username',
             when: (input) => input.role === "Engineer",
             validate: nameInput => {
                 if (nameInput) {
@@ -155,22 +155,8 @@ const addEmployee = () => {
         {
             type: 'input',
             name: 'school',
-            message: 'Please enter the office telephone number',
-            when: (input) => input.role ==="Engineer",
-            validate: nameInput => {
-                if(isNaN(nameInput)) {
-                    console.log('Please enter the office telephone number')
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'school',
             message: "Intern, please enter the name of your school",
-            when: (input) = input.role === 'intern',
+            when: (input) => input.role === 'Intern',
             validate: nameInput => {
                 if (nameInput) {
                     return true;
@@ -188,16 +174,16 @@ const addEmployee = () => {
     ])
     .then(employeeData => {
 
-        let { name, id, email, role, github, school, confirmAddingEmployee } = employeeData;
+        let { name, Id, email, role, github, school, confirmAddingEmployee } = employeeData;
         let employee;
 
         if (role === "Engineer" ) {
-            employee = new Engineer (name, id, email, github)
+            employee = new Engineer (name, Id, email, github)
 
             console.log(employee)
 
         } else if (role === "Intern") {
-            employee = new Intern (name, id, email, school);
+            employee = new Intern (name, Id, email, school);
 
             console.log(employee);
         }
@@ -221,7 +207,7 @@ const addEmployee = () => {
             console.log(err);
             return;
         } else {
-            console.log("Your team profile has been succesffuly generated in the HTML.index file!!")
+            console.log("Your team profile has been succesffuly generated in the team.index file!!")
         }
     })
    };
