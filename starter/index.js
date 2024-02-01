@@ -201,7 +201,7 @@ const addEmployee = () => {
    //  write function to generate HTML page
 
    const writeFile = data => {
-    fs.writeFile('./starter/team.html', data, err => {
+    fs.writeFile('./src/team.html', data, err => {
 
         if (err) {
             console.log(err);
