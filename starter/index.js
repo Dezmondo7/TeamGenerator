@@ -40,7 +40,7 @@ const addManager = () => {
             message: 'Please enter your ID',
             validate: nameInput => {
                 if (isNaN(nameInput)) {
-                    console.log('Please enter your ID number')
+                    console.log('Please enter your manager ID number')
                     return false;
                 } else {
                     return true;
@@ -50,7 +50,7 @@ const addManager = () => {
         {
             type: 'input',
             name: 'email',
-            message: 'Please enter your email adress',
+            message: 'Please enter your manager email adress',
             validate: email => {
                 valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
                 if (valid) {
@@ -65,7 +65,7 @@ const addManager = () => {
         {
             type: 'input',
             name: 'officeNumber',
-            message: 'Please enter the office telephone number',
+            message: 'Please enter the manager office telephone number',
             validate: nameInput => {
                 if(isNaN(nameInput)) {
                     console.log('Please enter the office telephone number')
