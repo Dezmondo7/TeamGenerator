@@ -14,9 +14,13 @@ The application automates the build of a Team Profile Generator file based on th
 
 ## Application
 
-Below is a link to the video of the working application with the GitHub link to the files. Images to the application are also below.
+Here is a link to the Github URL: https://github.com/Dezmondo7/TeamGenerator 
+
+Below is an image of the final working application 
+
+![alt text](starter/Images/TeamView.jpg)
 
 ## Licenses
 N/A
 
-https://drive.google.com/file/d/1sp0hY9QtsbRqeQq_LF3Exc9GLpjAMEvK/view?usp=sharing https://github.com/Dezmondo7/READMEGenerator
+
